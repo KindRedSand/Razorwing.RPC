@@ -1,0 +1,7 @@
+author = KindredTheFox
+version = 0.1
+displayName = Razorwing.RPC
+homepage = https://discord.gg/U8skDEA
+buildIgnore = Properties\*, *.tt, App.config, *.csproj, *.zip, *.user, obj\*, bin\*, .vs\*, .git\*, *.gitignore, *.psd, Items\Apricorns\Cooked\*, Items\Food\*, Items\Eggs\*, *.exe, Pokemon\NodeUtils\*, DevSuite\*
+includePDB = true
+languageVersion = 6

@@ -1,0 +1,61 @@
+﻿<#@ template language="C#" #>
+<#@ output extension=".cs" encoding="utf-8" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.Text" #>
+using System;
+using System.Linq.Expressions;
+using System.Reflection;
+
+namespace Razorwing.RPC
+{
+    public static class RPCExtensions
+    {
+        public static void RPC(this object target, Action method, ExecutingSide side = ExecutingSide.Both)
+            => RPCManager.ICall(target, method.Method, side, new object[] {});
+
+
+        public static void RPC<U>(this object target, Func<U> method, ExecutingSide side = ExecutingSide.Both)
+            => RPCManager.ICall(target, method.Method, side, new object[] { });
+<# int max = 12;
+for(int i = 0; i <= max; i++) 
+{
+    var builder = new StringBuilder();
+    var argbuilder = new StringBuilder();
+    var parambuilder = new StringBuilder();
+
+
+    for(int j = 0; j <= i; j++) 
+    {
+        builder.Append("T");
+        builder.Append(j);
+
+        argbuilder.Append("T");
+        argbuilder.Append(j);
+        argbuilder.Append(' ');
+        argbuilder.Append("arg");
+        argbuilder.Append(j);
+
+        parambuilder.Append("arg");
+        parambuilder.Append(j);
+
+        if(j != i) 
+        {
+            builder.Append(", ");
+            argbuilder.Append(", ");
+            parambuilder.Append(", ");
+        }
+    }
+
+    var T = builder.ToString();
+    var A = argbuilder.ToString();
+    var P = parambuilder.ToString();
+#>
+
+        public static void RPC<<#= T #>>(this object target, Action<<#= T #>> method, <#= A #>, ExecutingSide side = ExecutingSide.Both)
+            => RPCManager.ICall(target, method.Method, side, <#= P #>);
+
+        public static void RPC<<#= T #>, U>(this object target, Func<<#= T #>, U> method, <#= A #>, ExecutingSide side = ExecutingSide.Both)
+            => RPCManager.ICall(target, method.Method, side, <#= P #>);
+<# } #>
+    }
+}

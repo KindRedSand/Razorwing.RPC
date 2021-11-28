@@ -1,0 +1,3 @@
+﻿This library is supposed to help with mod networking.
+In general, this mod add RPC interfaces (Remote Procedure Call) what can be used to easy syncronise clients
+by calling same method on same object at one time on all connected clients
